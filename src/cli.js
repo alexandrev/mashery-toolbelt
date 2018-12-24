@@ -16,6 +16,7 @@ const runErrorSetAdd = require('./workflow/errorSet/add')
 const runBackupPackage = require('./workflow/backupPackage')
 const runRestorePackage = require('./workflow/restorePackage')
 const createPackage = require('./workflow/createPackage')
+const runImport = require('./workflow/import')
 
 defineProgram(
   {
@@ -76,6 +77,11 @@ defineProgram(
       .action((packageId, backupName) =>
         runRestorePackage(packageId, backupName)
       )
+
+    program
+      .command('import-api <serviceId> <backupName>')
+      .description('Create a new API from existing backup')
+      .action((packageId, backupName) => runImport(packageId, backupName))
 
     // Allow to have multiple option values
     function collect (val, memo) {
